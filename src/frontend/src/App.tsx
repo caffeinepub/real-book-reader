@@ -565,6 +565,385 @@ const PHONICS_PAGES: {
   },
 ];
 
+const HOLOPHRASES_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "HOLOPHRASES — PAGE 21",
+    subheading: "One Word / Phrase = Full Meaning",
+    lines: [
+      "HOLOPHRASES / होलोफ्रेज़",
+      "One word that carries a complete meaning",
+      "एक शब्द जो पूरा मतलब दे",
+      "─────────────────────────────────────",
+      "What is a Holophrase? / होलोफ्रेज़ क्या है?",
+      "A single word used as a full sentence.",
+      "एक ऐसा शब्द जो पूरे वाक्य का काम करे।",
+      "Children first learn language this way.",
+      "बच्चे पहले ऐसे ही बोलना सीखते हैं।",
+      "─────────────────────────────────────",
+      "1. 'Water!' = I want water. / पानी दो।",
+      "2. 'Gone!' = It is gone. / चला गया।",
+      "3. 'More!' = I want more. / और चाहिए।",
+      "4. 'Hot!' = This is hot. / यह गर्म है।",
+      "5. 'No!' = I don't want it. / नहीं चाहिए।",
+      "─────────────────────────────────────",
+      "6. 'Up!' = Pick me up. / उठा लो मुझे।",
+      "7. 'Out!' = Let me out. / मुझे बाहर जाने दो।",
+      "8. 'Mine!' = This is mine. / यह मेरा है।",
+      "9. 'Bye!' = Goodbye. / अलविदा।",
+      "10. 'Help!' = Please help me. / मदद करो।",
+    ],
+  },
+  {
+    heading: "HOLOPHRASES — PAGE 22",
+    subheading: "Daily Life Holophrases",
+    lines: [
+      "MORE HOLOPHRASES / और होलोफ्रेज़",
+      "Common one-word expressions in English",
+      "अंग्रेज़ी में आम एक-शब्द वाले भाव",
+      "─────────────────────────────────────",
+      "11. 'Ready?' = Are you ready? / तैयार हो?",
+      "12. 'Careful!' = Be careful. / सावधान रहो।",
+      "13. 'Stop!' = Stop right now. / अभी रुको।",
+      "14. 'Quick!' = Do it quickly. / जल्दी करो।",
+      "15. 'Wait!' = Please wait. / कृपया रुको।",
+      "─────────────────────────────────────",
+      "16. 'Sorry!' = I am sorry. / मुझे माफ करो।",
+      "17. 'Thanks!' = Thank you. / धन्यवाद।",
+      "18. 'Please!' = Please do it. / कृपया करो।",
+      "19. 'Really?' = Is it really true? / सच में?",
+      "20. 'Wow!' = That is amazing! / वाह! शानदार!",
+      "─────────────────────────────────────",
+      "TIP: Holophrases show FEELING + MEANING",
+      "टिप: होलोफ्रेज़ भाव और मतलब दोनों दर्शाते हैं",
+      "Practice saying them with emotion!",
+      "इन्हें भावना के साथ बोलने की कोशिश करें!",
+    ],
+  },
+];
+
+const TENSES_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "TENSES — PAGE 23",
+    subheading: "What is a Tense?",
+    lines: [
+      "TENSES / काल",
+      "Tense tells us WHEN something happens.",
+      "Tense बताता है कि कोई काम कब होता है।",
+      "─────────────────────────────────────",
+      "3 Main Tenses / 3 मुख्य काल:",
+      "1. PRESENT TENSE = अभी / अभी भी",
+      "2. PAST TENSE = पहले हो चुका",
+      "3. FUTURE TENSE = आगे होगा",
+      "─────────────────────────────────────",
+      "Each tense has 4 forms / हर काल के 4 रूप:",
+      "a) Simple  b) Continuous",
+      "c) Perfect  d) Perfect Continuous",
+      "─────────────────────────────────────",
+      "TOTAL = 12 Tenses in English!",
+      "अंग्रेज़ी में कुल 12 काल होते हैं!",
+      "─────────────────────────────────────",
+      "Example: I eat. / I ate. / I will eat.",
+      "मैं खाता हूँ। / मैंने खाया। / मैं खाऊँगा।",
+      "Learn each tense step by step.",
+      "हर काल को एक-एक करके सीखें।",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 24",
+    subheading: "Simple Present Tense",
+    lines: [
+      "1. SIMPLE PRESENT TENSE",
+      "सामान्य वर्तमान काल",
+      "─────────────────────────────────────",
+      "USE: Daily habits, facts, general truth",
+      "उपयोग: रोज़ की आदत, सत्य, सामान्य बात",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + V1 / V1+s/es",
+      "(-) Subject + do/does + not + V1",
+      "(?) Do/Does + Subject + V1?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) She reads a book. / वह किताब पढ़ती है।",
+      "(-) She does not read. / वह नहीं पढ़ती।",
+      "(?) Does she read? / क्या वह पढ़ती है?",
+      "─────────────────────────────────────",
+      "NOTE: He/She/It → verb+s/es",
+      "I/We/You/They → V1 (base form)",
+      "He plays. / They play.",
+      "वह खेलता है। / वे खेलते हैं।",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 25",
+    subheading: "Present Continuous Tense",
+    lines: [
+      "2. PRESENT CONTINUOUS TENSE",
+      "अपूर्ण वर्तमान काल",
+      "─────────────────────────────────────",
+      "USE: Action happening RIGHT NOW",
+      "उपयोग: काम जो अभी हो रहा है",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + is/am/are + V1+ing",
+      "(-) Subject + is/am/are + not + V1+ing",
+      "(?) Is/Am/Are + Subject + V1+ing?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I am eating food. / मैं खाना खा रहा हूँ।",
+      "(-) I am not eating. / मैं नहीं खा रहा।",
+      "(?) Are you eating? / क्या तुम खा रहे हो?",
+      "─────────────────────────────────────",
+      "KEY WORDS / पहचान के शब्द:",
+      "Now, right now, at this moment,",
+      "अभी, इस समय, फिलहाल",
+      "Look! Listen! She is singing now.",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 26",
+    subheading: "Present Perfect Tense",
+    lines: [
+      "3. PRESENT PERFECT TENSE",
+      "पूर्ण वर्तमान काल",
+      "─────────────────────────────────────",
+      "USE: Action done, effect still present",
+      "उपयोग: काम हो चुका, असर अभी भी है",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + has/have + V3",
+      "(-) Subject + has/have + not + V3",
+      "(?) Has/Have + Subject + V3?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I have eaten food. / मैंने खाना खाया है।",
+      "(-) I have not eaten. / मैंने नहीं खाया।",
+      "(?) Have you eaten? / क्या तुमने खाया?",
+      "─────────────────────────────────────",
+      "KEY WORDS / पहचान के शब्द:",
+      "Just, already, yet, ever, never, since",
+      "अभी-अभी, पहले से, अभी तक, कभी, कभी नहीं",
+      "She has just arrived. / वह अभी-अभी आई है।",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 27",
+    subheading: "Present Perfect Continuous",
+    lines: [
+      "4. PRESENT PERFECT CONTINUOUS",
+      "पूर्ण-अपूर्ण वर्तमान काल",
+      "─────────────────────────────────────",
+      "USE: Action started in past, still going",
+      "उपयोग: काम पहले शुरू हुआ, अभी भी जारी",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + has/have + been + V1+ing",
+      "(-) Sub + has/have + not + been + V1+ing",
+      "(?) Has/Have + Subject + been + V1+ing?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I have been reading since morning.",
+      "   मैं सुबह से पढ़ रहा हूँ।",
+      "(-) She has not been sleeping.",
+      "   वह सो नहीं रही थी।",
+      "(?) How long have you been waiting?",
+      "   तुम कितने समय से इंतज़ार कर रहे हो?",
+      "KEY WORDS: since, for, how long",
+      "since = एक समय से | for = अवधि के लिए",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 28",
+    subheading: "Simple Past Tense",
+    lines: [
+      "5. SIMPLE PAST TENSE",
+      "सामान्य भूत काल",
+      "─────────────────────────────────────",
+      "USE: Action completed in the past",
+      "उपयोग: काम जो पहले हो चुका",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + V2",
+      "(-) Subject + did + not + V1",
+      "(?) Did + Subject + V1?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) He played cricket. / उसने क्रिकेट खेला।",
+      "(-) He did not play. / उसने नहीं खेला।",
+      "(?) Did he play? / क्या उसने खेला?",
+      "─────────────────────────────────────",
+      "KEY WORDS / पहचान के शब्द:",
+      "Yesterday, ago, last year/week/night",
+      "कल, पहले, पिछले साल / हफ्ते / रात",
+      "I went to Delhi yesterday. / मैं कल दिल्ली गया।",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 29",
+    subheading: "Past Continuous Tense",
+    lines: [
+      "6. PAST CONTINUOUS TENSE",
+      "अपूर्ण भूत काल",
+      "─────────────────────────────────────",
+      "USE: Action going on at a time in past",
+      "उपयोग: पहले किसी समय काम चल रहा था",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + was/were + V1+ing",
+      "(-) Subject + was/were + not + V1+ing",
+      "(?) Was/Were + Subject + V1+ing?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) She was cooking. / वह खाना बना रही थी।",
+      "(-) She was not cooking. / वह नहीं बना रही थी।",
+      "(?) Was she cooking? / क्या वह बना रही थी?",
+      "─────────────────────────────────────",
+      "KEY WORDS / पहचान के शब्द:",
+      "While, when, at that time, all day",
+      "जब, उस समय, सारे दिन",
+      "He was sleeping when I called.",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 30",
+    subheading: "Past Perfect Tense",
+    lines: [
+      "7. PAST PERFECT TENSE",
+      "पूर्ण भूत काल",
+      "─────────────────────────────────────",
+      "USE: One action done before another past",
+      "उपयोग: दो पुराने कामों में से जो पहले हुआ",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + had + V3",
+      "(-) Subject + had + not + V3",
+      "(?) Had + Subject + V3?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I had eaten before he came.",
+      "   वह आने से पहले मैंने खाना खा लिया था।",
+      "(-) I had not slept last night.",
+      "   मैं कल रात नहीं सोया था।",
+      "(?) Had you finished before 5 pm?",
+      "   क्या तुमने 5 बजे से पहले खत्म किया था?",
+      "KEY WORDS: before, after, already, by",
+      "पहले, बाद में, पहले से, तक",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 31",
+    subheading: "Past Perfect Continuous",
+    lines: [
+      "8. PAST PERFECT CONTINUOUS",
+      "पूर्ण-अपूर्ण भूत काल",
+      "─────────────────────────────────────",
+      "USE: Action going on for time before past",
+      "उपयोग: भूत में किसी बिंदु से पहले जारी काम",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + had + been + V1+ing",
+      "(-) Subject + had + not + been + V1+ing",
+      "(?) Had + Subject + been + V1+ing?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I had been studying for 2 hours.",
+      "   मैं 2 घंटे से पढ़ रहा था।",
+      "(-) She had not been working.",
+      "   वह काम नहीं कर रही थी।",
+      "(?) Had they been waiting long?",
+      "   क्या वे काफी देर से इंतज़ार कर रहे थे?",
+      "KEY WORDS: for, since, before, till",
+      "के लिए, से, पहले, तक",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 32",
+    subheading: "Simple Future Tense",
+    lines: [
+      "9. SIMPLE FUTURE TENSE",
+      "सामान्य भविष्य काल",
+      "─────────────────────────────────────",
+      "USE: Action that WILL happen in future",
+      "उपयोग: काम जो आगे होगा",
+      "─────────────────────────────────────",
+      "FORMULA / बनाने का तरीका:",
+      "(+) Subject + will + V1",
+      "(-) Subject + will + not + V1",
+      "(?) Will + Subject + V1?",
+      "─────────────────────────────────────",
+      "EXAMPLES / उदाहरण:",
+      "(+) I will go to school. / मैं स्कूल जाऊँगा।",
+      "(-) I will not go. / मैं नहीं जाऊँगा।",
+      "(?) Will you go? / क्या तुम जाओगे?",
+      "─────────────────────────────────────",
+      "KEY WORDS / पहचान के शब्द:",
+      "Tomorrow, next week/year, soon, later",
+      "कल, अगले हफ्ते/साल, जल्द, बाद में",
+      "She will come tomorrow. / वह कल आएगी।",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 33",
+    subheading: "Future Continuous & Perfect",
+    lines: [
+      "10. FUTURE CONTINUOUS TENSE",
+      "अपूर्ण भविष्य काल",
+      "FORMULA: Subject + will be + V1+ing",
+      "(+) I will be sleeping at 10 pm.",
+      "   रात 10 बजे मैं सो रहा होऊँगा।",
+      "(?) Will you be working then?",
+      "   क्या तुम तब काम कर रहे होगे?",
+      "─────────────────────────────────────",
+      "11. FUTURE PERFECT TENSE",
+      "पूर्ण भविष्य काल",
+      "FORMULA: Subject + will have + V3",
+      "(+) I will have finished by 5 pm.",
+      "   मैं शाम 5 बजे तक खत्म कर चुका होऊँगा।",
+      "(?) Will she have left by then?",
+      "   क्या वह तब तक जा चुकी होगी?",
+      "─────────────────────────────────────",
+      "KEY WORDS for Future Perfect:",
+      "By then, by tomorrow, by next week",
+      "तब तक, कल तक, अगले हफ्ते तक",
+      "USE: Action complete before a future time",
+    ],
+  },
+  {
+    heading: "TENSES — PAGE 34",
+    subheading: "Future Perfect Continuous + Summary",
+    lines: [
+      "12. FUTURE PERFECT CONTINUOUS",
+      "पूर्ण-अपूर्ण भविष्य काल",
+      "FORMULA: Sub + will have been + V1+ing",
+      "(+) I will have been studying 2 hours.",
+      "   मैं 2 घंटे से पढ़ता आ रहा होऊँगा।",
+      "(?) Will they have been working long?",
+      "─────────────────────────────────────",
+      "TENSE SUMMARY / काल सारांश:",
+      "PRESENT: is/am/are + has/have",
+      "PAST:    was/were + had",
+      "FUTURE:  will + will have",
+      "─────────────────────────────────────",
+      "V1=Base | V2=Past | V3=Past Participle",
+      "go → went → gone",
+      "जाना → गया → जाया जा चुका",
+      "eat → ate → eaten",
+      "खाना → खाया → खाया जा चुका",
+      "─────────────────────────────────────",
+      "GOLDEN RULE: Practice makes perfect!",
+      "अभ्यास ही सफलता की कुंजी है!",
+    ],
+  },
+];
+
 type PageType =
   | "cover"
   | "back-cover"
@@ -576,6 +955,8 @@ type PageType =
   | "imperative"
   | "homophones"
   | "phonics"
+  | "holophrases"
+  | "tenses"
   | "blank";
 
 interface PageInfo {
@@ -587,6 +968,8 @@ interface PageInfo {
   imperativeIndex?: number;
   homophonesIndex?: number;
   phonicsIndex?: number;
+  holophrasesIndex?: number;
+  tensesIndex?: number;
   num?: number;
   side?: "left" | "right";
 }
@@ -646,6 +1029,41 @@ function getSpread(s: number): SpreadTuple {
     return [
       { type: "phonics", phonicsIndex: 1, num: 19, side: "left" },
       { type: "phonics", phonicsIndex: 2, num: 20, side: "right" },
+    ];
+  if (s === 11)
+    return [
+      { type: "holophrases", holophrasesIndex: 0, num: 21, side: "left" },
+      { type: "holophrases", holophrasesIndex: 1, num: 22, side: "right" },
+    ];
+  if (s === 12)
+    return [
+      { type: "tenses", tensesIndex: 0, num: 23, side: "left" },
+      { type: "tenses", tensesIndex: 1, num: 24, side: "right" },
+    ];
+  if (s === 13)
+    return [
+      { type: "tenses", tensesIndex: 2, num: 25, side: "left" },
+      { type: "tenses", tensesIndex: 3, num: 26, side: "right" },
+    ];
+  if (s === 14)
+    return [
+      { type: "tenses", tensesIndex: 4, num: 27, side: "left" },
+      { type: "tenses", tensesIndex: 5, num: 28, side: "right" },
+    ];
+  if (s === 15)
+    return [
+      { type: "tenses", tensesIndex: 6, num: 29, side: "left" },
+      { type: "tenses", tensesIndex: 7, num: 30, side: "right" },
+    ];
+  if (s === 16)
+    return [
+      { type: "tenses", tensesIndex: 8, num: 31, side: "left" },
+      { type: "tenses", tensesIndex: 9, num: 32, side: "right" },
+    ];
+  if (s === 17)
+    return [
+      { type: "tenses", tensesIndex: 10, num: 33, side: "left" },
+      { type: "tenses", tensesIndex: 11, num: 34, side: "right" },
     ];
   return [
     { type: "blank", num: n, side: "left" },
@@ -2154,6 +2572,311 @@ function BlankPage({ num, side }: { num?: number; side: "left" | "right" }) {
   );
 }
 
+function HolophrasesPage({
+  holophrasesIndex,
+  side,
+  num,
+}: { holophrasesIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = HOLOPHRASES_PAGES[holophrasesIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: "#0A1F3D",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSep = line.startsWith("─");
+          const isNum = /^\d+\./.test(line);
+          const isHead =
+            isNum ||
+            line.startsWith("MORE") ||
+            line.startsWith("WHAT") ||
+            line.startsWith("TIP");
+          const isNote = line.startsWith("TIP");
+          const isIndent = line.startsWith("   ");
+          return (
+            <div
+              key={`holo-${holophrasesIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSep
+                    ? "6px"
+                    : isHead
+                      ? "7.5px"
+                      : isIndent
+                        ? "6.8px"
+                        : "7px",
+                  color: isSep
+                    ? "rgba(212,175,55,0.5)"
+                    : isNote
+                      ? "#8B0000"
+                      : isHead
+                        ? "#0A1F3D"
+                        : isHindi
+                          ? "#4a3000"
+                          : "#1a2a4a",
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHead || isNote ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left"
+              ? { left: "50%", transform: "translateX(-50%)" }
+              : { right: "50%", transform: "translateX(50%)" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
+function TensesPage({
+  tensesIndex,
+  side,
+  num,
+}: { tensesIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = TENSES_PAGES[tensesIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(0,80,160,0.13)",
+          borderBottom: "1px solid rgba(0,80,160,0.25)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: "#0A1F3D",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSep = line.startsWith("─");
+          const isFormula =
+            line.startsWith("FORMULA") ||
+            line.startsWith("(+)") ||
+            line.startsWith("(-)") ||
+            line.startsWith("(?)");
+          const isHead =
+            /^\d+\./.test(line) ||
+            line.startsWith("USE:") ||
+            line.startsWith("NOTE") ||
+            line.startsWith("KEY") ||
+            line.startsWith("GOLDEN") ||
+            line.startsWith("TENSE") ||
+            line.startsWith("V1=");
+          const isNote = line.startsWith("GOLDEN") || line.startsWith("NOTE");
+          const isIndent = line.startsWith("   ");
+          return (
+            <div
+              key={`tns-${tensesIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSep
+                    ? "6px"
+                    : isHead
+                      ? "7.5px"
+                      : isFormula
+                        ? "7px"
+                        : isIndent
+                          ? "6.8px"
+                          : "7px",
+                  color: isSep
+                    ? "rgba(0,80,160,0.35)"
+                    : isNote
+                      ? "#8B0000"
+                      : isHead
+                        ? "#0A1F3D"
+                        : isFormula
+                          ? "#0050a0"
+                          : isHindi
+                            ? "#4a3000"
+                            : "#1a2a4a",
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHead || isNote || isFormula ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left"
+              ? { left: "50%", transform: "translateX(-50%)" }
+              : { right: "50%", transform: "translateX(50%)" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PageContent({
   page,
   side,
@@ -2213,6 +2936,22 @@ function PageContent({
       return (
         <PhonicsPage
           phonicsIndex={page.phonicsIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "holophrases":
+      return (
+        <HolophrasesPage
+          holophrasesIndex={page.holophrasesIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "tenses":
+      return (
+        <TensesPage
+          tensesIndex={page.tensesIndex ?? 0}
           side={page.side ?? side}
           num={page.num}
         />
