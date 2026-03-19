@@ -9,7 +9,6 @@ const queryClient = new QueryClient();
 const TOTAL_PAGES = 60;
 const MAX_SPREAD = 31;
 
-// ─── Premium colour tokens ───
 const GOLD = "#D4AF37";
 const GOLD_LIGHT = "#F0D060";
 const GOLD_DIM = "rgba(212,175,55,0.55)";
@@ -19,7 +18,6 @@ const NAVY_MID = "#0A1F3D";
 const NAVY_LIGHT = "#0D2752";
 const NAVY_COVER = "#071530";
 
-// ─── 60 Daily Phrases – Hindi & English ───
 const PHRASE_PAGES: { heading: string; lines: string[] }[] = [
   {
     heading: "Daily Phrases — Page 1",
@@ -119,17 +117,476 @@ const PHRASE_PAGES: { heading: string; lines: string[] }[] = [
   },
 ];
 
-// Spread 0        → Cover
-// Spread 1        → Pages 1-2  (Phrases page 1 & 2)
-// Spread 2        → Pages 3-4  (Phrases page 3 & 4)
-// Spreads 3-30    → Blank pages
-// Spread 31       → Back cover
+// ─── Modal Auxiliary Pages 5, 6, 7 ───
+const MODAL_PAGES: { heading: string; subheading: string; lines: string[] }[] =
+  [
+    {
+      heading: "MODAL AUXILIARIES — PAGE 5",
+      subheading: "Modal Sahayak Kriyaen — Pej 5",
+      lines: [
+        "MODAL AUXILIARIES / मोडल सहायक क्रियाएँ",
+        "(Help express ability, permission, possibility)",
+        "─────────────────────────────────────",
+        "1. CAN — क्षमता / अनुमति (Ability / Permission)",
+        "   I can speak English.",
+        "   Main English bol sakta hoon.",
+        "   Can you help me?",
+        "   Kya aap meri madad kar sakte hain?",
+        "─────────────────────────────────────",
+        "2. COULD — विनम्र अनुरोध / भूत क्षमता",
+        "   (Polite request / Past ability)",
+        "   I could run fast in childhood.",
+        "   Main bachpan mein tez daud sakta tha.",
+        "   Could you please open the door?",
+        "   Kya aap darwaza khol sakte hain?",
+        "─────────────────────────────────────",
+        "3. SHALL — प्रस्ताव / भविष्य (Offer / Future)",
+        "   Shall I help you?",
+        "   Kya main aapki madad karoon?",
+        "   We shall meet again.",
+        "   Hum dobara milenge.",
+      ],
+    },
+    {
+      heading: "MODAL AUXILIARIES — PAGE 6",
+      subheading: "Modal Sahayak Kriyaen — Pej 6",
+      lines: [
+        "4. SHOULD — सलाह / कर्तव्य (Advice / Duty)",
+        "   You should drink more water.",
+        "   Aapko zyada paani peena chahiye.",
+        "   She should study daily.",
+        "   Use roz padhna chahiye.",
+        "─────────────────────────────────────",
+        "5. WILL — निश्चित भविष्य (Definite Future)",
+        "   I will call you tomorrow.",
+        "   Main kal aapko call karoonga.",
+        "   It will rain today.",
+        "   Aaj baarish hogi.",
+        "─────────────────────────────────────",
+        "6. WOULD — विनम्र अनुरोध / शर्त",
+        "   (Polite request / Conditional)",
+        "   Would you like some tea?",
+        "   Kya aap chai lenge?",
+        "   I would help if I had time.",
+        "   Agar time hota to main madad karta.",
+        "─────────────────────────────────────",
+        "",
+        "",
+      ],
+    },
+    {
+      heading: "MODAL AUXILIARIES — PAGE 7",
+      subheading: "Modal Sahayak Kriyaen — Pej 7",
+      lines: [
+        "7. MAY — संभावना / अनुमति (Possibility / Permission)",
+        "   It may rain this evening.",
+        "   Shaam ko baarish ho sakti hai.",
+        "   May I come in?",
+        "   Kya main andar aa sakta hoon?",
+        "─────────────────────────────────────",
+        "8. MIGHT — कम संभावना (Less Possibility)",
+        "   She might be at home.",
+        "   Woh ghar par ho sakti hai.",
+        "   I might join later.",
+        "   Main baad mein aa sakta hoon.",
+        "─────────────────────────────────────",
+        "9. OUGHT TO — नैतिक कर्तव्य (Moral Duty)",
+        "   You ought to respect elders.",
+        "   Aapko bado ka aadhar karna chahiye.",
+        "   We ought to keep our city clean.",
+        "   Hume shehar saaf rakhna chahiye.",
+        "─────────────────────────────────────",
+        "NOTE: Modals never change form!",
+        "याद: Modals ki spelling नहीं बदलती!",
+      ],
+    },
+  ];
 
-type PageType = "cover" | "back-cover" | "inner" | "phrase" | "blank";
+// ─── Primary Auxiliary Page 8 ───
+const PRIMARY_AUX_PAGE = {
+  heading: "PRIMARY AUXILIARIES — PAGE 8",
+  subheading: "Prathmik Sahayak Kriyaen — Pej 8",
+  lines: [
+    "PRIMARY AUXILIARIES / प्राथमिक सहायक क्रियाएँ",
+    "(Used to form tenses, questions, negatives)",
+    "─────────────────────────────────────",
+    "1. BE — होना (Am / Is / Are / Was / Were)",
+    "   Used for continuous tenses & passive voice.",
+    "   She is reading a book.",
+    "   Woh kitaab padh rahi hai.",
+    "   They were playing cricket.",
+    "   Woh log cricket khel rahe the.",
+    "─────────────────────────────────────",
+    "2. DO — करना (Do / Does / Did)",
+    "   Used for questions, negatives & emphasis.",
+    "   Do you speak English?",
+    "   Kya aap English bolte hain?",
+    "   She does not eat meat.",
+    "   Woh gosht nahi khati.",
+    "─────────────────────────────────────",
+    "3. HAVE — होना / पास होना (Have / Has / Had)",
+    "   Used to form perfect tenses.",
+  ],
+};
+
+const ARTICLES_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "ARTICLES — PAGE 9",
+    subheading: "Articles — Pej 9",
+    lines: [
+      "ARTICLES / आर्टिकल्स (A, AN, THE)",
+      "(Used before nouns to define them)",
+      "─────────────────────────────────────",
+      "1. A — (अनिश्चित / Indefinite Article)",
+      "   Used before consonant sounds.",
+      "   I saw a dog in the park.",
+      "   Maine park mein ek kutta dekha.",
+      "   She is a teacher.",
+      "   Woh ek teacher hai.",
+      "─────────────────────────────────────",
+      "2. AN — (अनिश्चित / Indefinite Article)",
+      "   Used before vowel sounds (a,e,i,o,u).",
+      "   He ate an apple.",
+      "   Usne ek seb khaya.",
+      "   She is an honest girl.",
+      "   Woh ek imaandaar ladki hai.",
+      "─────────────────────────────────────",
+      "NOTE: A/AN = किसी एक चीज़ के लिए",
+      "Use A before consonant, AN before vowel!",
+    ],
+  },
+  {
+    heading: "ARTICLES — PAGE 10",
+    subheading: "Articles — Pej 10",
+    lines: [
+      "3. THE — (निश्चित / Definite Article)",
+      "   Used for specific/known things.",
+      "   The sun rises in the east.",
+      "   Surya poorab mein ugta hai.",
+      "   Please close the door.",
+      "   Kripya darwaza band karo.",
+      "─────────────────────────────────────",
+      "WHEN TO USE THE:",
+      "   • Specific noun already known",
+      "   • Unique things (sun, moon, sky)",
+      "   • Superlatives: the best, the biggest",
+      "─────────────────────────────────────",
+      "QUICK COMPARISON / तुलना:",
+      "   A cat = कोई एक बिल्ली",
+      "   An elephant = कोई एक हाथी",
+      "   The cat = वही बिल्ली (जो हम जानते हैं)",
+      "─────────────────────────────────────",
+      "NOTE: THE = एक निश्चित चीज़ के लिए!",
+      "Practice: A/AN = any one, THE = that one!",
+    ],
+  },
+];
+
+const IMPERATIVE_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "IMPERATIVE SENTENCES — PAGE 11",
+    subheading: "Imperative / Aadesh Wale Vakya",
+    lines: [
+      "IMPERATIVE SENTENCES / आदेश वाले वाक्य",
+      "─────────────────────────────────────",
+      "WHAT IS IMPERATIVE? / क्या है?",
+      "   Sentences that give ORDER, REQUEST,",
+      "   ADVICE, or INSTRUCTION are called",
+      "   Imperative Sentences.",
+      "   जो वाक्य आदेश, विनती, सलाह या",
+      "   निर्देश देते हैं — वो Imperative हैं।",
+      "─────────────────────────────────────",
+      "FORMULA: Verb (base form) + Object",
+      "   Subject (You) is always HIDDEN!",
+      "   You is always the hidden subject.",
+      "─────────────────────────────────────",
+      "TYPE 1 — ORDER / आदेश देना:",
+      "   Sit down! = बैठ जाओ!",
+      "   Be quiet! = चुप रहो!",
+      "   Stand up! = खड़े हो जाओ!",
+      "   Close the door! = दरवाज़ा बंद करो!",
+      "─────────────────────────────────────",
+      "NOTE: Strong command = use (!) mark",
+    ],
+  },
+  {
+    heading: "IMPERATIVE SENTENCES — PAGE 12",
+    subheading: "Imperative — Pg 12",
+    lines: [
+      "TYPE 2 — REQUEST / विनती करना:",
+      "   Please help me. = कृपया मेरी मदद करो।",
+      "   Please sit here. = कृपया यहाँ बैठिए।",
+      "   Please be on time. = कृपया समय पर आएं।",
+      "   TIP: Add 'Please' to make it polite!",
+      "─────────────────────────────────────",
+      "TYPE 3 — ADVICE / सलाह देना:",
+      "   Work hard. = मेहनत करो।",
+      "   Eat healthy food. = स्वस्थ खाना खाओ।",
+      "   Sleep early. = जल्दी सो जाओ।",
+      "   Exercise daily. = रोज़ व्यायाम करो।",
+      "─────────────────────────────────────",
+      "TYPE 4 — INSTRUCTION / निर्देश देना:",
+      "   Open your books. = किताब खोलो।",
+      "   Write your name. = अपना नाम लिखो।",
+      "   Read the question. = सवाल पढ़ो।",
+      "─────────────────────────────────────",
+      "NOTE: Instructions are common in exams,",
+      "      kitchens, classrooms & daily life!",
+    ],
+  },
+  {
+    heading: "IMPERATIVE SENTENCES — PAGE 13",
+    subheading: "Imperative — Pg 13",
+    lines: [
+      "NEGATIVE IMPERATIVE / मना करना:",
+      "   Formula: Do not / Don't + Verb",
+      "─────────────────────────────────────",
+      "   Don't shout. = चिल्लाओ मत।",
+      "   Don't be late. = देरी मत करो।",
+      "   Do not touch this. = इसे मत छुओ।",
+      "   Don't waste time. = समय बर्बाद मत करो।",
+      "─────────────────────────────────────",
+      "QUICK SUMMARY / याद रखो:",
+      "   ORDER    → Sit! Stand! Come here!",
+      "   REQUEST  → Please help me.",
+      "   ADVICE   → Work hard. Sleep early.",
+      "   INSTRUCTION → Open your book.",
+      "   NEGATIVE → Don't run. Don't shout.",
+      "─────────────────────────────────────",
+      "KEY RULE: Subject (YOU) is always",
+      "   hidden in Imperative sentences!",
+      "   Go! = (You) Go! / जाओ!",
+      "─────────────────────────────────────",
+      "Practice: Make 5 sentences of your own!",
+    ],
+  },
+];
+
+const HOMOPHONES_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "HOMOPHONES — PAGE 14",
+    subheading: "Same Sound, Different Meaning",
+    lines: [
+      "HOMOPHONES / होमोफोन्स",
+      "Same Sound — Different Spelling & Meaning",
+      "एक जैसी आवाज़ — अलग spelling और मतलब",
+      "─────────────────────────────────────",
+      "1. HERE / HEAR",
+      "   HERE = यहाँ (place/जगह)",
+      "   Come here. = यहाँ आओ।",
+      "   HEAR = सुनना (with ears/कानों से)",
+      "   I can hear music. = मुझे संगीत सुनाई देता है।",
+      "─────────────────────────────────────",
+      "2. THERE / THEIR / THEY'RE",
+      "   THERE = वहाँ (place) → Go there.",
+      "   THEIR = उनका (belonging) → Their bag.",
+      "   THEY'RE = They are → They're happy.",
+      "─────────────────────────────────────",
+      "3. TO / TOO / TWO",
+      "   TO = के लिए / की ओर → Go to school.",
+      "   TOO = भी / बहुत → I am too tired.",
+      "   TWO = 2 (number) → I have two cats.",
+    ],
+  },
+  {
+    heading: "HOMOPHONES — PAGE 15",
+    subheading: "Homophones — Pg 15",
+    lines: [
+      "4. RIGHT / WRITE / RITE",
+      "   RIGHT = सही / दाएं → Turn right.",
+      "   WRITE = लिखना → Write your name.",
+      "   RITE = रस्म / ritual → A wedding rite.",
+      "─────────────────────────────────────",
+      "5. SEE / SEA",
+      "   SEE = देखना → I can see the stars.",
+      "   SEA = समुद्र → Fish live in the sea.",
+      "─────────────────────────────────────",
+      "6. SUN / SON",
+      "   SUN = सूरज → The sun is bright.",
+      "   SON = बेटा → He is my son.",
+      "─────────────────────────────────────",
+      "7. FLOWER / FLOUR",
+      "   FLOWER = फूल → She likes flowers.",
+      "   FLOUR = आटा → Add flour to the dough.",
+      "─────────────────────────────────────",
+      "8. KNOW / NO",
+      "   KNOW = जानना → I know the answer.",
+      "   NO = नहीं → No, I can't come.",
+    ],
+  },
+  {
+    heading: "HOMOPHONES — PAGE 16",
+    subheading: "Homophones — Pg 16",
+    lines: [
+      "9. MEET / MEAT",
+      "   MEET = मिलना → Let's meet tomorrow.",
+      "   MEAT = मांस → He doesn't eat meat.",
+      "─────────────────────────────────────",
+      "10. BARE / BEAR",
+      "   BARE = नंगा / खाली → bare hands.",
+      "   BEAR = भालू / सहना → bear the pain.",
+      "─────────────────────────────────────",
+      "11. CELL / SELL",
+      "   CELL = कोशिका / कमरा → blood cell.",
+      "   SELL = बेचना → I sell vegetables.",
+      "─────────────────────────────────────",
+      "12. WEAK / WEEK",
+      "   WEAK = कमज़ोर → He is very weak.",
+      "   WEEK = सप्ताह → I'll come next week.",
+      "─────────────────────────────────────",
+      "13. PEACE / PIECE",
+      "   PEACE = शान्ति → I want peace.",
+      "   PIECE = टुकड़ा → Give me a piece.",
+    ],
+  },
+  {
+    heading: "HOMOPHONES — PAGE 17",
+    subheading: "Homophones — Pg 17 (Summary)",
+    lines: [
+      "14. HAIR / HARE",
+      "   HAIR = बाल → Her hair is long.",
+      "   HARE = खरगोश → A hare runs fast.",
+      "─────────────────────────────────────",
+      "15. FAIR / FARE",
+      "   FAIR = उचित / मेला → fair price.",
+      "   FARE = किराया → What is the bus fare?",
+      "─────────────────────────────────────",
+      "16. WHOLE / HOLE",
+      "   WHOLE = पूरा → Eat the whole apple.",
+      "   HOLE = छेद → There is a hole here.",
+      "─────────────────────────────────────",
+      "QUICK TIPS / याद करने का तरीका:",
+      "   • Read both words together in one line",
+      "   • Write a sentence for each word",
+      "   • Same sound ≠ Same meaning!",
+      "─────────────────────────────────────",
+      "NOTE: Homophones confuse even native",
+      "   speakers — practice them daily!",
+      "   रोज़ अभ्यास करो — गलती नहीं होगी!",
+    ],
+  },
+];
+
+const PHONICS_PAGES: {
+  heading: string;
+  subheading: string;
+  lines: string[];
+}[] = [
+  {
+    heading: "PHONICS — PAGE 18",
+    subheading: "Phonics kya hota hai?",
+    lines: [
+      "PHONICS / फोनिक्स",
+      "How Letters SOUND — अक्षर कैसे बोले जाते हैं",
+      "─────────────────────────────────────",
+      "WHAT IS PHONICS?",
+      "   Phonics = Letters ki awaaz seekhna",
+      "   हर अक्षर की अपनी एक आवाज़ होती है।",
+      "   जब आवाज़ें मिलती हैं → शब्द बनता है!",
+      "─────────────────────────────────────",
+      "VOWELS / स्वर (A E I O U):",
+      "   A = 'ae' → Apple, Ant, Add",
+      "   E = 'eh' → Egg, End, Elephant",
+      "   I = 'ih' → Ink, Ill, Into",
+      "   O = 'oh' → Orange, On, Off",
+      "   U = 'uh' → Under, Up, Umbrella",
+      "─────────────────────────────────────",
+      "CONSONANTS / व्यंजन:",
+      "   B = 'buh' → Ball, Boy, Bus",
+      "   C = 'kuh' → Cat, Cup, Cow",
+      "   D = 'duh' → Dog, Door, Day",
+      "NOTE: Vowels = आवाज़ की नींव!",
+    ],
+  },
+  {
+    heading: "PHONICS — PAGE 19",
+    subheading: "Phonics Rules / नियम",
+    lines: [
+      "MORE CONSONANTS / और व्यंजन:",
+      "   F = 'fuh' → Fish, Fan, Far",
+      "   G = 'guh' → Goat, Go, Girl",
+      "   H = 'huh' → Hat, Hot, He",
+      "   J = 'juh' → Jam, Jar, Jump",
+      "   K = 'kuh' → Kite, Key, King",
+      "   L = 'luh' → Lamp, Leg, Love",
+      "   M = 'muh' → Map, Man, Mug",
+      "   N = 'nuh' → Net, Nose, Name",
+      "─────────────────────────────────────",
+      "BLENDS / मिली हुई आवाज़ें:",
+      "   BL = Black, Blue, Blow",
+      "   CL = Clock, Clap, Cloud",
+      "   FL = Flag, Fly, Floor",
+      "   ST = Star, Stop, Step",
+      "   TR = Tree, Train, Try",
+      "─────────────────────────────────────",
+      "TIP: Blends = 2 letters, 2 sounds!",
+      "   BL → B+L together, very fast!",
+      "   अभ्यास करो: धीरे बोलो फिर तेज़!",
+    ],
+  },
+  {
+    heading: "PHONICS — PAGE 20",
+    subheading: "Phonics — Digraphs & Silent Letters",
+    lines: [
+      "DIGRAPHS / दो अक्षर, एक आवाज़:",
+      "   CH = Chair, Cheese, Child",
+      "   SH = Ship, Shop, Shell",
+      "   TH = This, That, Three",
+      "   WH = When, Where, Which",
+      "   PH = Phone, Photo = 'f' sound!",
+      "─────────────────────────────────────",
+      "SILENT LETTERS / खामोश अक्षर:",
+      "   K is silent before N:",
+      "   KNOW (= 'no'), KNIFE (= 'nife')",
+      "   W is silent before R:",
+      "   WRITE (= 'rite'), WRONG (= 'rong')",
+      "   B is silent after M:",
+      "   COMB (= 'come'), LAMB (= 'lam')",
+      "─────────────────────────────────────",
+      "QUICK SUMMARY / याद रखो:",
+      "   Vowels = A E I O U → आवाज़ की base",
+      "   Blends = 2 sounds fast together",
+      "   Digraphs = 2 letters = 1 new sound",
+      "   Silent = letter is there, no sound!",
+      "Practice daily — pronunciation improve!",
+    ],
+  },
+];
+
+type PageType =
+  | "cover"
+  | "back-cover"
+  | "inner"
+  | "phrase"
+  | "modal"
+  | "primary-aux"
+  | "articles"
+  | "imperative"
+  | "homophones"
+  | "phonics"
+  | "blank";
 
 interface PageInfo {
   type: PageType;
-  phraseIndex?: number; // 0-3
+  phraseIndex?: number;
+  modalIndex?: number;
+  primaryAuxIndex?: number;
+  articlesIndex?: number;
+  imperativeIndex?: number;
+  homophonesIndex?: number;
+  phonicsIndex?: number;
   num?: number;
   side?: "left" | "right";
 }
@@ -150,6 +607,46 @@ function getSpread(s: number): SpreadTuple {
       { type: "phrase", phraseIndex: 2, num: 3, side: "left" },
       { type: "phrase", phraseIndex: 3, num: 4, side: "right" },
     ];
+  if (s === 3)
+    return [
+      { type: "modal", modalIndex: 0, num: 5, side: "left" },
+      { type: "modal", modalIndex: 1, num: 6, side: "right" },
+    ];
+  if (s === 4)
+    return [
+      { type: "modal", modalIndex: 2, num: 7, side: "left" },
+      { type: "primary-aux", primaryAuxIndex: 0, num: 8, side: "right" },
+    ];
+  if (s === 5)
+    return [
+      { type: "articles", articlesIndex: 0, num: 9, side: "left" },
+      { type: "articles", articlesIndex: 1, num: 10, side: "right" },
+    ];
+  if (s === 6)
+    return [
+      { type: "imperative", imperativeIndex: 0, num: 11, side: "left" },
+      { type: "imperative", imperativeIndex: 1, num: 12, side: "right" },
+    ];
+  if (s === 7)
+    return [
+      { type: "imperative", imperativeIndex: 2, num: 13, side: "left" },
+      { type: "homophones", homophonesIndex: 0, num: 14, side: "right" },
+    ];
+  if (s === 8)
+    return [
+      { type: "homophones", homophonesIndex: 1, num: 15, side: "left" },
+      { type: "homophones", homophonesIndex: 2, num: 16, side: "right" },
+    ];
+  if (s === 9)
+    return [
+      { type: "homophones", homophonesIndex: 3, num: 17, side: "left" },
+      { type: "phonics", phonicsIndex: 0, num: 18, side: "right" },
+    ];
+  if (s === 10)
+    return [
+      { type: "phonics", phonicsIndex: 1, num: 19, side: "left" },
+      { type: "phonics", phonicsIndex: 2, num: 20, side: "right" },
+    ];
   return [
     { type: "blank", num: n, side: "left" },
     { type: "blank", num: n + 1, side: "right" },
@@ -160,11 +657,17 @@ function getLabel(s: number): string {
   if (s === 0) return "Cover";
   if (s === MAX_SPREAD) return "Back Cover";
   const n = (s - 1) * 2 + 1;
-  if (s <= 2) return `Phrases — Pages ${n}\u2013${n + 1}`;
-  return `Pages ${n}\u2013${n + 1} of ${TOTAL_PAGES}`;
+  if (s <= 2) return `Phrases — Pages ${n}–${n + 1}`;
+  if (s === 3) return "Modal Auxiliaries — Pages 5–6";
+  if (s === 4) return "Modal Auxiliaries p.7 & Primary Auxiliaries p.8";
+  if (s === 5) return "Articles — Pages 9–10";
+  if (s === 6) return "Imperative Sentences — Pages 11–12";
+  if (s === 7) return "Imperative p.13 & Homophones p.14";
+  if (s === 8) return "Homophones — Pages 15–16";
+  if (s === 9) return "Homophones p.17 & Phonics p.18";
+  if (s === 10) return "Phonics — Pages 19–20";
+  return `Pages ${n}–${n + 1} of ${TOTAL_PAGES}`;
 }
-
-// ─── Page Components ───
 
 function InnerCover() {
   return (
@@ -457,14 +960,8 @@ function PhrasePage({
   phraseIndex,
   side,
   num,
-}: {
-  phraseIndex: number;
-  side: "left" | "right";
-  num?: number;
-}) {
+}: { phraseIndex: number; side: "left" | "right"; num?: number }) {
   const pg = PHRASE_PAGES[phraseIndex];
-  const lines = pg.lines;
-
   return (
     <div
       style={{
@@ -480,7 +977,6 @@ function PhrasePage({
         flexDirection: "column",
       }}
     >
-      {/* Red margin line */}
       <div
         style={{
           position: "absolute",
@@ -492,7 +988,6 @@ function PhrasePage({
           zIndex: 1,
         }}
       />
-      {/* Gold header band */}
       <div
         style={{
           width: "100%",
@@ -525,8 +1020,6 @@ function PhrasePage({
           {pg.heading}
         </span>
       </div>
-
-      {/* Lines */}
       <div
         style={{
           flex: 1,
@@ -538,7 +1031,7 @@ function PhrasePage({
           position: "relative",
         }}
       >
-        {lines.slice(0, 19).map((line) => {
+        {pg.lines.slice(0, 19).map((line, i) => {
           const isHeading =
             line === line.toUpperCase() &&
             line.trim().length > 3 &&
@@ -547,12 +1040,8 @@ function PhrasePage({
           const isPhrase = line.match(/^\d/);
           return (
             <div
-              key={String(phraseIndex) + line.slice(0, 15)}
-              style={{
-                flex: 1,
-                display: "flex",
-                alignItems: "center",
-              }}
+              key={`p${phraseIndex}-${line.slice(0, 10)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
             >
               <span
                 style={{
@@ -569,7 +1058,6 @@ function PhrasePage({
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   width: "100%",
-                  textDecoration: isHeading ? "none" : "none",
                   borderBottom: isHeading
                     ? "1px solid rgba(212,175,55,0.35)"
                     : "none",
@@ -582,8 +1070,6 @@ function PhrasePage({
           );
         })}
       </div>
-
-      {/* Page number */}
       {num !== undefined && (
         <div
           style={{
@@ -632,13 +1118,958 @@ function PhrasePage({
   );
 }
 
-function BlankPage({
-  num,
+function ModalPage({
+  modalIndex,
   side,
-}: {
-  num?: number;
-  side: "left" | "right";
-}) {
+  num,
+}: { modalIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = MODAL_PAGES[modalIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      {/* Gold header */}
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      {/* Lines */}
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSeparator = line.startsWith("─");
+          const isNumbered = /^\d+\./.test(line);
+          const isIndented = line.startsWith("   ");
+          const isNote = line.startsWith("NOTE") || line.startsWith("याद");
+          const isHeading = isNumbered;
+          return (
+            <div
+              key={`m${modalIndex}-${line.slice(0, 10)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSeparator
+                    ? "6px"
+                    : isHindi
+                      ? "clamp(5.5px, 1.2vw, 7.5px)"
+                      : "clamp(6px, 1.3vw, 8px)",
+                  fontFamily: isHindi
+                    ? "'Noto Sans Devanagari', Arial, sans-serif"
+                    : '"Courier New", Courier, monospace',
+                  fontWeight: isHeading || isNote ? 700 : 400,
+                  color: isHeading
+                    ? NAVY_MID
+                    : isHindi
+                      ? "#2a1a5e"
+                      : isSeparator
+                        ? "rgba(212,175,55,0.5)"
+                        : isNote
+                          ? "#7a3000"
+                          : isIndented
+                            ? "#1a1a2e"
+                            : "#1a1a2e",
+                  letterSpacing: isHeading ? "0.06em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                  borderBottom: isHeading
+                    ? "1px solid rgba(212,175,55,0.3)"
+                    : "none",
+                  paddingBottom: isHeading ? "1px" : "0",
+                  paddingLeft: isIndented ? "4px" : "0",
+                }}
+              >
+                {line || "\u00a0"}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "7px",
+            left: 0,
+            right: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
+            zIndex: 3,
+            userSelect: "none",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              width: "18px",
+              height: "1px",
+              background: "rgba(212,175,55,0.4)",
+            }}
+          />
+          <span
+            style={{
+              fontSize: "10px",
+              fontWeight: 600,
+              color: "rgba(10,31,61,0.55)",
+              fontFamily: '"Playfair Display", Georgia, serif',
+              letterSpacing: "0.12em",
+            }}
+          >
+            {num}
+          </span>
+          <span
+            style={{
+              display: "inline-block",
+              width: "18px",
+              height: "1px",
+              background: "rgba(212,175,55,0.4)",
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PrimaryAuxPage({
+  side,
+  num,
+}: { side: "left" | "right"; num?: number }) {
+  const pg = PRIMARY_AUX_PAGE;
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      {/* Gold header */}
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      {/* Lines */}
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSeparator = line.startsWith("─");
+          const isNumbered = /^\d+\./.test(line);
+          const isIndented = line.startsWith("   ");
+          const isNote = line.startsWith("NOTE") || line.startsWith("याद");
+          const isHeading = isNumbered;
+          return (
+            <div
+              key={`pa-${line.slice(0, 10)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSeparator
+                    ? "6px"
+                    : isHindi
+                      ? "clamp(5.5px, 1.2vw, 7.5px)"
+                      : "clamp(6px, 1.3vw, 8px)",
+                  fontFamily: isHindi
+                    ? "'Noto Sans Devanagari', Arial, sans-serif"
+                    : '"Courier New", Courier, monospace',
+                  fontWeight: isHeading || isNote ? 700 : 400,
+                  color: isHeading
+                    ? NAVY_MID
+                    : isHindi
+                      ? "#2a1a5e"
+                      : isSeparator
+                        ? "rgba(212,175,55,0.5)"
+                        : isNote
+                          ? "#7a3000"
+                          : "#1a1a2e",
+                  letterSpacing: isHeading ? "0.06em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                  borderBottom: isHeading
+                    ? "1px solid rgba(212,175,55,0.3)"
+                    : "none",
+                  paddingBottom: isHeading ? "1px" : "0",
+                  paddingLeft: isIndented ? "4px" : "0",
+                }}
+              >
+                {line || "\u00a0"}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "7px",
+            left: 0,
+            right: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
+            zIndex: 3,
+            userSelect: "none",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              width: "18px",
+              height: "1px",
+              background: "rgba(212,175,55,0.4)",
+            }}
+          />
+          <span
+            style={{
+              fontSize: "10px",
+              fontWeight: 600,
+              color: "rgba(10,31,61,0.55)",
+              fontFamily: '"Playfair Display", Georgia, serif',
+              letterSpacing: "0.12em",
+            }}
+          >
+            {num}
+          </span>
+          <span
+            style={{
+              display: "inline-block",
+              width: "18px",
+              height: "1px",
+              background: "rgba(212,175,55,0.4)",
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ArticlesPage({
+  articlesIndex,
+  side,
+  num,
+}: { articlesIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = ARTICLES_PAGES[articlesIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      {/* Gold header */}
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      {/* Lines */}
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSeparator = line.startsWith("─");
+          const isNumbered = /^\d+\./.test(line);
+          const isIndented = line.startsWith("   ");
+          const isNote =
+            line.startsWith("NOTE") ||
+            line.startsWith("WHEN") ||
+            line.startsWith("QUICK") ||
+            line.startsWith("Practice");
+          const isHeading = isNumbered;
+          return (
+            <div
+              key={`art-${articlesIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSeparator
+                    ? "6px"
+                    : isHeading
+                      ? "7.5px"
+                      : isNote
+                        ? "7px"
+                        : isIndented
+                          ? "6.8px"
+                          : "7px",
+                  color: isSeparator
+                    ? "rgba(212,175,55,0.5)"
+                    : isHeading
+                      ? NAVY_DEEP
+                      : isNote
+                        ? "#8B0000"
+                        : isHindi
+                          ? "#4a3000"
+                          : NAVY_MID,
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHeading || isNote ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: isHeading ? "0.04em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {/* Page number */}
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left" ? { left: "10px" } : { right: "10px" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ImperativePage({
+  imperativeIndex,
+  side,
+  num,
+}: { imperativeIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = IMPERATIVE_PAGES[imperativeIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSep = line.startsWith("─");
+          const isHead =
+            line.startsWith("TYPE") ||
+            line.startsWith("WHAT") ||
+            line.startsWith("FORMULA") ||
+            line.startsWith("NEGATIVE") ||
+            line.startsWith("QUICK") ||
+            line.startsWith("KEY RULE");
+          const isNote =
+            line.startsWith("NOTE") ||
+            line.startsWith("TIP") ||
+            line.startsWith("Practice");
+          const isIndent = line.startsWith("   ");
+          return (
+            <div
+              key={`imp-${imperativeIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSep
+                    ? "6px"
+                    : isHead
+                      ? "7.5px"
+                      : isNote
+                        ? "7px"
+                        : isIndent
+                          ? "6.8px"
+                          : "7px",
+                  color: isSep
+                    ? "rgba(212,175,55,0.5)"
+                    : isHead
+                      ? NAVY_DEEP
+                      : isNote
+                        ? "#8B0000"
+                        : isHindi
+                          ? "#4a3000"
+                          : NAVY_MID,
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHead || isNote ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: isHead ? "0.04em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left"
+              ? { left: "50%", transform: "translateX(-50%)" }
+              : { right: "50%", transform: "translateX(50%)" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
+function HomophonesPage({
+  homophonesIndex,
+  side,
+  num,
+}: { homophonesIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = HOMOPHONES_PAGES[homophonesIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSep = line.startsWith("─");
+          const isNum = /^\d+\./.test(line);
+          const isHead =
+            isNum || line.startsWith("QUICK") || line.startsWith("NOTE");
+          const isNote = line.startsWith("NOTE") || line.startsWith("TIP");
+          const isIndent = line.startsWith("   ");
+          return (
+            <div
+              key={`hom-${homophonesIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSep
+                    ? "6px"
+                    : isHead
+                      ? "7.5px"
+                      : isNote
+                        ? "7px"
+                        : isIndent
+                          ? "6.8px"
+                          : "7px",
+                  color: isSep
+                    ? "rgba(212,175,55,0.5)"
+                    : isHead && !isNote
+                      ? NAVY_DEEP
+                      : isNote
+                        ? "#8B0000"
+                        : isHindi
+                          ? "#4a3000"
+                          : NAVY_MID,
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHead || isNote ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: isHead ? "0.04em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left"
+              ? { left: "50%", transform: "translateX(-50%)" }
+              : { right: "50%", transform: "translateX(50%)" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PhonicsPage({
+  phonicsIndex,
+  side,
+  num,
+}: { phonicsIndex: number; side: "left" | "right"; num?: number }) {
+  const pg = PHONICS_PAGES[phonicsIndex];
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#FDFCF8",
+        backgroundImage:
+          "linear-gradient(transparent calc(100% - 1px), rgba(100,120,200,0.18) calc(100% - 1px))",
+        backgroundSize: "100% 5%",
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          ...(side === "left" ? { left: "38px" } : { right: "38px" }),
+          top: 0,
+          bottom: 0,
+          width: "1px",
+          backgroundColor: "rgba(200,80,80,0.14)",
+          zIndex: 1,
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "5%",
+          background: "rgba(212,175,55,0.22)",
+          borderBottom: "1px solid rgba(212,175,55,0.35)",
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "7px",
+            color: NAVY_MID,
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {pg.heading} | {pg.subheading}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          padding: "2px 10px 26px 44px",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          zIndex: 2,
+          position: "relative",
+        }}
+      >
+        {pg.lines.map((line, i) => {
+          const isHindi = /[\u0900-\u097F]/.test(line);
+          const isSep = line.startsWith("─");
+          const isHead =
+            line.startsWith("WHAT") ||
+            line.startsWith("VOWELS") ||
+            line.startsWith("CONSONANTS") ||
+            line.startsWith("MORE") ||
+            line.startsWith("BLENDS") ||
+            line.startsWith("DIGRAPHS") ||
+            line.startsWith("SILENT") ||
+            line.startsWith("QUICK");
+          const isNote =
+            line.startsWith("NOTE") ||
+            line.startsWith("TIP") ||
+            line.startsWith("Practice");
+          const isIndent = line.startsWith("   ");
+          return (
+            <div
+              key={`ph-${phonicsIndex}-${line.slice(0, 8)}-${i}`}
+              style={{ flex: 1, display: "flex", alignItems: "center" }}
+            >
+              <span
+                style={{
+                  fontSize: isSep
+                    ? "6px"
+                    : isHead
+                      ? "7.5px"
+                      : isNote
+                        ? "7px"
+                        : isIndent
+                          ? "6.8px"
+                          : "7px",
+                  color: isSep
+                    ? "rgba(212,175,55,0.5)"
+                    : isHead
+                      ? NAVY_DEEP
+                      : isNote
+                        ? "#8B0000"
+                        : isHindi
+                          ? "#4a3000"
+                          : NAVY_MID,
+                  fontFamily: isHindi
+                    ? '"Noto Sans Devanagari", sans-serif'
+                    : '"Playfair Display", Georgia, serif',
+                  fontWeight: isHead || isNote ? 700 : 400,
+                  lineHeight: 1,
+                  letterSpacing: isHead ? "0.04em" : "0.01em",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  width: "100%",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      {num !== undefined && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: "6px",
+            ...(side === "left"
+              ? { left: "50%", transform: "translateX(-50%)" }
+              : { right: "50%", transform: "translateX(50%)" }),
+            fontSize: "7px",
+            color: "rgba(212,175,55,0.7)",
+            fontFamily: '"Playfair Display", Georgia, serif',
+            fontWeight: 600,
+            zIndex: 3,
+          }}
+        >
+          — {num} —
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BlankPage({ num, side }: { num?: number; side: "left" | "right" }) {
   return (
     <div
       style={{
@@ -727,11 +2158,7 @@ function PageContent({
   page,
   side,
   title,
-}: {
-  page: PageInfo | null;
-  side: "left" | "right";
-  title: string;
-}) {
+}: { page: PageInfo | null; side: "left" | "right"; title: string }) {
   if (!page) return <InnerCover />;
   switch (page.type) {
     case "cover":
@@ -744,6 +2171,48 @@ function PageContent({
       return (
         <PhrasePage
           phraseIndex={page.phraseIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "modal":
+      return (
+        <ModalPage
+          modalIndex={page.modalIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "primary-aux":
+      return <PrimaryAuxPage side={page.side ?? side} num={page.num} />;
+    case "articles":
+      return (
+        <ArticlesPage
+          articlesIndex={page.articlesIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "imperative":
+      return (
+        <ImperativePage
+          imperativeIndex={page.imperativeIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "homophones":
+      return (
+        <HomophonesPage
+          homophonesIndex={page.homophonesIndex ?? 0}
+          side={page.side ?? side}
+          num={page.num}
+        />
+      );
+    case "phonics":
+      return (
+        <PhonicsPage
+          phonicsIndex={page.phonicsIndex ?? 0}
           side={page.side ?? side}
           num={page.num}
         />
@@ -762,12 +2231,7 @@ function BookReader() {
     from: number;
     to: number;
     dir: "next" | "prev";
-  }>({
-    active: false,
-    from: 0,
-    to: 0,
-    dir: "next",
-  });
+  }>({ active: false, from: 0, to: 0, dir: "next" });
 
   const { data: book } = useGetBook();
   const bookTitle =
@@ -829,7 +2293,6 @@ function BookReader() {
         padding: "24px 16px",
       }}
     >
-      {/* Header */}
       <header className="mb-6 text-center">
         <div className="flex items-center justify-center gap-2 mb-1">
           <BookOpen size={18} style={{ color: GOLD_DIM }} />
@@ -862,7 +2325,6 @@ function BookReader() {
         </p>
       </header>
 
-      {/* Book */}
       <main>
         <div style={{ perspective: "1800px", perspectiveOrigin: "50% 45%" }}>
           <div
@@ -876,7 +2338,6 @@ function BookReader() {
             }}
             data-ocid="book.panel"
           >
-            {/* Left page */}
             <div
               style={{
                 width: "50%",
@@ -889,8 +2350,6 @@ function BookReader() {
             >
               <PageContent page={bgLeft} side="left" title={bookTitle} />
             </div>
-
-            {/* Spine */}
             <div
               style={{
                 position: "absolute",
@@ -905,8 +2364,6 @@ function BookReader() {
                   "0 0 20px rgba(0,0,0,0.9), 2px 0 8px rgba(0,0,0,0.5), -2px 0 8px rgba(0,0,0,0.5)",
               }}
             />
-
-            {/* Right page */}
             <div
               style={{
                 width: "50%",
@@ -919,8 +2376,6 @@ function BookReader() {
             >
               <PageContent page={bgRight} side="right" title={bookTitle} />
             </div>
-
-            {/* Flip animation */}
             {active && flipFront && (
               <motion.div
                 style={{
@@ -999,7 +2454,6 @@ function BookReader() {
         </div>
       </main>
 
-      {/* Navigation */}
       <nav className="mt-8 flex items-center gap-6">
         <button
           onClick={() => triggerFlip("prev")}
@@ -1025,7 +2479,6 @@ function BookReader() {
         >
           <ChevronLeft size={22} />
         </button>
-
         <div style={{ textAlign: "center", minWidth: "200px" }}>
           <p
             style={{
@@ -1070,7 +2523,6 @@ function BookReader() {
             {displaySpread} / {MAX_SPREAD}
           </p>
         </div>
-
         <button
           onClick={() => triggerFlip("next")}
           disabled={!canNext}
